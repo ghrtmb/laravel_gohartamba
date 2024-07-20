@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('content')
-    <h1>{{ $page_title }}</h1>
+    <h3>{{ $page_title }}</h3>
     <div class="card">
         <div class="card-header bg-success-subtle">
             <a href="{{ route('pengumuman.create') }}" class="btn btn-outline-dark shadow-lg btn-sm"><i
