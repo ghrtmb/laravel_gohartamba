@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="row">
                 @foreach ($data as $row)
-                    <div class="col-2" title="Total data dari {{ $row['nama'] }}">
+                    <div class="col-md-6 col-lg-2 py-2" title="Total data dari {{ $row['nama'] }}">
                         <div class="card text-center">
                             <div class="card-header bg-success">
                                 <span class="text-bg-success">{{ $row['nama'] }}</span>
