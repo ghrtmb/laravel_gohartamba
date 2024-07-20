@@ -26,8 +26,9 @@
             </div>
 
             <div class="card-footer mt-3 text-center">
-                <button type="submit" class="btn btn-sm px-5 btn-success">Simpan</button>
-                <a class="btn btn-sm px-5 btn-secondary" href="{{ url()->previous() }}">Kembali</a>
+                <button type="submit" class="btn btn-sm px-5 btn-success"><i class="fas fa-check"></i> Simpan</button>
+                <a class="btn btn-sm px-5 btn-secondary" href="{{ url()->previous() }}"><i class="fas fa-times"></i>
+                    Kembali</a>
             </div>
         </form>
     </div>

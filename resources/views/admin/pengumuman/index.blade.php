@@ -29,7 +29,7 @@
                                     <td>{{ $item->judul }}</td>
                                     <td>{{ $item->isi_pengumuman }}</td>
                                     <td>{{ $item->tgl_posting ? date('d M Y', strtotime($item->tgl_posting)) : '-' }}</td>
-                                    <td align="center">
+                                    <td align="center" width="15%">
                                         <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                             action="{{ route('pengumuman.destroy', $item->id_pengumuman) }}" method="POST">
                                             <a href="{{ route('pengumuman.edit', $item->id_pengumuman) }}"

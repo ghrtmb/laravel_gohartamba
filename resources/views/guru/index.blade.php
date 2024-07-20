@@ -43,7 +43,7 @@
                             <td>{{ $item->nama_guru }}</td>
                             <td>{{ $item->alamat }}</td>
                             <td>{{ $item->gender }}</td>
-                            <td align="center">
+                            <td align="center" width="15%">
                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                     action="{{ route('guru.destroy', $item->guru_id) }}" method="POST">
                                     <a href="{{ route('guru.edit', $item->guru_id) }}" class="btn btn-sm btn-outline-dark"
