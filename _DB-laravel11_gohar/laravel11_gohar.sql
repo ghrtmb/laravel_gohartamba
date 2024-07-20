@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 20, 2024 at 04:12 AM
+-- Generation Time: Jul 20, 2024 at 05:59 AM
 -- Server version: 5.7.33
 -- PHP Version: 8.2.21
 
@@ -97,8 +97,8 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`guru_id`, `nama_guru`, `gender`, `alamat`, `phone`, `created_at`, `updated_at`) VALUES
-('123', 'Guru 1', NULL, '12345', '1234', '2024-07-15 08:14:04', '2024-07-18 09:21:56'),
-('4321', 'Guru 2', NULL, '4321', '4321', '2024-07-15 08:54:57', '2024-07-18 09:22:03');
+('123', 'Guru 1', 'Laki-laki', 'Alamat Guru 1', '1234', '2024-07-15 08:14:04', '2024-07-19 21:29:15'),
+('4321', 'Guru 2', 'Laki-laki', 'Alamat Guru 2', '4321', '2024-07-15 08:54:57', '2024-07-19 21:29:23');
 
 -- --------------------------------------------------------
 
@@ -132,15 +132,23 @@ INSERT INTO `hari` (`hari_id`, `nama_hari`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `jadwal` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `id_guru` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jadwal_id` bigint(20) UNSIGNED NOT NULL,
+  `guru_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pelajaran_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hari_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_jadwal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `jam_mulai` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hari` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jadwal`
+--
+
+INSERT INTO `jadwal` (`jadwal_id`, `guru_id`, `pelajaran_id`, `hari_id`, `nama_jadwal`, `jam_mulai`, `created_at`, `updated_at`) VALUES
+(1, '123', '1', '1', NULL, '13:00', '2024-07-19 21:57:57', '2024-07-19 22:12:34'),
+(2, '4321', '2', '2', NULL, '12:00', '2024-07-19 22:03:26', '2024-07-19 22:13:07');
 
 -- --------------------------------------------------------
 
@@ -258,7 +266,7 @@ CREATE TABLE `password_reset_tokens` (
 --
 
 CREATE TABLE `pelajaran` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `pelajaran_id` bigint(20) UNSIGNED NOT NULL,
   `nama_pelajaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -268,9 +276,10 @@ CREATE TABLE `pelajaran` (
 -- Dumping data for table `pelajaran`
 --
 
-INSERT INTO `pelajaran` (`id`, `nama_pelajaran`, `created_at`, `updated_at`) VALUES
+INSERT INTO `pelajaran` (`pelajaran_id`, `nama_pelajaran`, `created_at`, `updated_at`) VALUES
 (1, 'Pelajaran 1', NULL, NULL),
-(2, 'Pelajaran 2', NULL, NULL);
+(2, 'Pelajaran 2', NULL, NULL),
+(3, 'Pelajaran 3', '2024-07-19 21:41:54', '2024-07-19 21:49:12');
 
 -- --------------------------------------------------------
 
@@ -308,7 +317,8 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id_pengumuman`, `judul`, `isi_pengumuman`, `tgl_posting`, `created_at`, `updated_at`) VALUES
-(3, '123', '123', '2024-07-18', '2024-07-15 08:45:50', '2024-07-18 09:24:40');
+(3, 'Pengumuman 1', 'Ini adalah isi dari Pengumuman 1', '2024-07-17', '2024-07-15 08:45:50', '2024-07-19 22:25:53'),
+(4, 'Pengumuman 2', 'Ini adalah isi dari Pengumuman 2', '2024-07-20', '2024-07-19 22:28:38', '2024-07-19 22:28:38');
 
 -- --------------------------------------------------------
 
@@ -330,8 +340,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('2YkDJMqtOHtNCHgSx6YPHRyMVdOvOP0pcBAvWYnY', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSmwxa3RNR1p2ZUpYbDlPVzdpcG5XdXU5MVpMeGtDd2pNeVh1Z05IVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1721441423),
-('kExjiR8xTlgOwWo5goSme54DEZOaZRgKcDUAEqfZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidUJkcFRDYWpVMGt6WnZXTjhhZFhFVjZlcW5TSmJYVEtac1NnYm9KNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9rdXJpa3VsdW0iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1721448487);
+('kExjiR8xTlgOwWo5goSme54DEZOaZRgKcDUAEqfZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidUJkcFRDYWpVMGt6WnZXTjhhZFhFVjZlcW5TSmJYVEtac1NnYm9KNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1721454055);
 
 -- --------------------------------------------------------
 
@@ -427,7 +436,7 @@ ALTER TABLE `hari`
 -- Indexes for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`jadwal_id`);
 
 --
 -- Indexes for table `jobs`
@@ -470,7 +479,7 @@ ALTER TABLE `password_reset_tokens`
 -- Indexes for table `pelajaran`
 --
 ALTER TABLE `pelajaran`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`pelajaran_id`);
 
 --
 -- Indexes for table `penduduk`
@@ -537,7 +546,7 @@ ALTER TABLE `hari`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `jadwal_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -567,7 +576,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pelajaran`
 --
 ALTER TABLE `pelajaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pelajaran_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `penduduk`
@@ -579,7 +588,7 @@ ALTER TABLE `penduduk`
 -- AUTO_INCREMENT for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
-  MODIFY `id_pengumuman` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pengumuman` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tabel_akuntansi_master`
