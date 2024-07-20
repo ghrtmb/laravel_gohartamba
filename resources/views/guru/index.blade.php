@@ -2,7 +2,7 @@
 @section('content')
     <h3>Daftar Guru</h3>
     <div class="card">
-        <div class="card-header bg-success">
+        <div class="card-header bg-success-subtle">
             <a href="{{ route('guru.create') }}" class="btn btn-outline-dark btn-sm shadow-lg"><i class="fas fa-plus"></i>
                 Tambah
                 Data</a>

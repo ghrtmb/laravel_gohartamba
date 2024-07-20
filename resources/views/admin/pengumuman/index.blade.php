@@ -2,7 +2,7 @@
 @section('content')
     <h1>{{ $page_title }}</h1>
     <div class="card">
-        <div class="card-header bg-success">
+        <div class="card-header bg-success-subtle">
             <a href="{{ route('pengumuman.create') }}" class="btn btn-outline-dark shadow-lg btn-sm"><i
                     class="fas fa-plus"></i> Tambah
                 Data</a>

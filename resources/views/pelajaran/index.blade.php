@@ -2,7 +2,7 @@
 @section('content')
     <h3>{{ $page_title }}</h3>
     <div class="card">
-        <div class="card-header bg-success">
+        <div class="card-header bg-success-subtle">
             <a href="{{ route('pelajaran.create') }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-plus"></i> Tambah
                 Data</a>
         </div>
