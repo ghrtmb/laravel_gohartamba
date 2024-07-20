@@ -9,7 +9,7 @@ class Guru extends Model
 {
     use HasFactory;
     protected $table = "guru";
-    protected $primaryKey = "id_guru";
+    protected $primaryKey = "guru_id";
 
     public $incrementing = false;
     public $timestamps = true;

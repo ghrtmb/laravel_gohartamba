@@ -1,82 +1,56 @@
 @extends('layout.main')
 @section('content')
-
-<h1>Jadwal Pelajaran</h1>
-<div class="card">
-        <div class="card-header">
-        <a href="{{ route('jadwal.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+    <h3>{{ $page_title }}</h3>
+    <div class="card">
+        <div class="card-header bg-success">
+            <a href="{{ route('jadwal.create') }}" class="btn btn-outline-dark btn-sm shadow"><i class="fas fa-plus"></i>
+                Tambah
+                Data</a>
         </div>
-        <div class="card-body">   
+        <div class="card-body">
             <table class="table table-sm table-stripped table-bordered">
                 <thead>
-            <tr>
-                <td>No</td>
-                <td>Nama Jadwal</td>
-                <td>Nama Guru</td>
-                <td>Pelajaran</td>
-                <td>Jam Mulai</td>
-               
-                <td>Tanggal</td>
-                <td>Aksi</td>
-                <td>Delete</td>
-            </tr>
-            </thead>
-            @foreach ($jadwal as $rows)
-            <tbody>
-                 <tr>
-                    <td>{{ $loop->iteration }} </td>
-                    <td>{{ $rows->nama_jadwal }}</td>
-                    <td>{{ $rows->nama_guru }}</td>
-                    <td>{{ $rows->nama_pelajaran }}</td>
-                    <td>{{ $rows->jam_mulai }} </td>
-                    <td>{{ $rows->created_at }}</td>
-                    <td>
-                        <a href="{{ route('jadwal.edit', $rows->id) }}" class="btn btn-warning btn-sm">Ubah</a>                                      
-                    </td>
-                    <td> 
-                    
-                    <form onsubmit="return deleteData('{{ $rows->nama_jadwal }}')" style="display: inline" method="POST"  action="{{ route('jadwal.destroy', $rows->id) }}">
-                            @csrf 
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm">Hapus</button>
-                        </form>  
-                    </td>
-                 </tr>   
-            @endforeach
-            </tbody>
+                    <tr>
+                        <th class="text-center">No</th>
+                        <th>Nama Guru</th>
+                        <th>Pelajaran</th>
+                        <th>Hari</th>
+                        <th>Jam Mulai</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                @foreach ($jadwal as $item)
+                    <tbody>
+                        <tr>
+                            <td align="center">{{ $loop->iteration }}.</td>
+                            <td>{{ $item->nama_guru }}</td>
+                            <td>{{ $item->nama_pelajaran }}</td>
+                            <td>{{ $item->nama_hari }}</td>
+                            <td>{{ $item->jam_mulai }} </td>
+                            <td align="center" width="15%">
+
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                    action="{{ route('jadwal.destroy', $item->jadwal_id) }}" method="POST">
+                                    <a href="{{ route('jadwal.edit', $item->jadwal_id) }}"
+                                        class="btn btn-sm btn-outline-dark" title="Ubah data"><i
+                                            class="fas fa-edit"></i></a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-dark" title="Hapus data"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                @endforeach
+                </tbody>
             </table>
         </div>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-  function deleteData(name){
-    pesan = confirm('Yakin data dengan nama : '+name+' ini dihapus?');
-    if(pesan) return true;
-    else return false;
-  }
-
-  //message with sweetalert
-  @if(session('success'))
-        Swal.fire({
-            icon: "success",
-            title: "BERHASIL",
-            text: "{{ session('success') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @elseif(session('error'))
-        Swal.fire({
-            icon: "error",
-            title: "GAGAL!",
-            text: "{{ session('error') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
-</script>
-
+    </div>
+    <script>
+        function deleteData(name) {
+            pesan = confirm('Yakin data dengan nama : ' + name + ' ini dihapus?');
+            if (pesan) return true;
+            else return false;
+        }
+    </script>
 @endsection

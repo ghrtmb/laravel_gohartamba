@@ -13,29 +13,31 @@ class GuruController extends Controller
     {
         // echo"Test";
         $search = $request->query('search');
-        // echo 'dd'. $search;
+
         if (!empty($search)) {
-            $data = Guru::where('guru.id_guru', 'like', '%' . $search . '%')
-                ->orWhere('siswa.nama_guru', 'like', '%' . $search . '%')
+            $data = Guru::where('guru.guru_id', 'like', '%' . $search . '%')
+                ->orWhere('guru.nama_guru', 'like', '%' . $search . '%')
                 ->paginate(10)->onEachSide(2)->fragment('std');
         } else {
             $data = Guru::paginate(10)->onEachSide(2)->fragment('std');
         }
         return view('guru.index')->with([
             'guru' => $data,
-            'search' => $search
+            'search' => $search,
+            'page_title' => 'Daftar Guru',
         ]);
     }
 
     public function create()
     {
-        return view('guru.add');
+        $page_title = 'Tambah Data Guru';
+        return view('guru.add', compact('page_title'));
     }
 
     public function store(Request $request)
     {
         $guru = new Guru();
-        $guru->id_guru = $request->id_guru;
+        $guru->guru_id = $request->guru_id;
         $guru->nama_guru = $request->nama_guru;
         $guru->alamat = $request->alamat;
         $guru->gender = $request->gender;
@@ -44,13 +46,13 @@ class GuruController extends Controller
         return redirect('guru')->with(['success' => 'Data Berhasil Ditambahkan!']);
     }
 
-    public function show(Guru $guru, $id_guru)
+    public function show(Guru $guru, $guru_id)
     {
-        // echo $id_guru;
-        $data = Guru::find($id_guru);
+        // echo $guru_id;
+        $data = Guru::find($guru_id);
         // dd($data);
         return view('guru.edit')->with([
-            'id_guru'      => $id_guru,
+            'guru_id'      => $guru_id,
             'nama_guru'    => $data->nama_guru,
             'alamat'        => $data->alamat,
             'gender'        => $data->gender,
@@ -61,12 +63,13 @@ class GuruController extends Controller
     public function edit(string $id)
     {
         $guru = Guru::find($id);
-        return view('guru/edit', compact('guru'));
+        $page_title = 'Ubah Data Guru';
+        return view('guru/edit', compact('guru', 'page_title'));
     }
 
-    public function update(Request $request, string $id_guru)
+    public function update(Request $request, string $guru_id)
     {
-        $data = Guru::find($id_guru);
+        $data = Guru::find($guru_id);
         $data->nama_guru   = $request->nama_guru;
         $data->alamat       = $request->alamat;
         $data->phone        = $request->phone;
@@ -75,9 +78,9 @@ class GuruController extends Controller
         return redirect('guru')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
-    public function destroy($id_guru)
+    public function destroy($guru_id)
     {
-        $data = Guru::find($id_guru);
+        $data = Guru::find($guru_id);
         $data->delete();
         return redirect('guru')->with(['success' => 'Data Berhasil Dihapus!']);
     }

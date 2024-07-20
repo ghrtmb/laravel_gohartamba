@@ -1,51 +1,59 @@
 @extends('layout.main')
 @section('content')
+    <div class="card">
+        <div class="card-header">
+            <h3>{{ $page_title }}</h3>
+        </div>
+        <form action="{{ route('jadwal.store') }}" method="POST">
+            @csrf
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row mb-3">
+                            <label class="form-label col-2" width="30%">Hari</label>
+                            <div class="col-3">
+                                <select name="hari_id" id="hari_id" class="form-select">
+                                    @foreach ($hari as $item)
+                                        <option value="{{ $item->hari_id }}"> {{ $item->nama_hari }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <label class="form-label col-2">Jam Mulai</label>
+                            <div class="col-2">
+                                <input type="time" name="jam_mulai" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <label class="form-label col-2">Guru</label>
+                            <div class="col-5">
+                                <select name="guru_id" id="guru_id" class="form-select">
+                                    @foreach ($guru as $item)
+                                        <option value="{{ $item->guru_id }}"> {{ $item->nama_guru }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
+                        <div class="form-group row mb-3">
+                            <label class="form-label col-2">Pelajaran</label>
+                            <div class="col-5">
+                                <select name="pelajaran_id" id="pelajaran_id" class="form-select">
+                                    @foreach ($pelajaran as $item)
+                                        <option value="{{ $item->pelajaran_id }}"> {{ $item->nama_pelajaran }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<h3>Tambah Data Jadwal</h3>
-<form action="{{ route('jadwal.store') }}" method="POST">
-@csrf
-<table class="table table-borderless">
-    <tr>
-        <td width="30%">Nama Jadwal</td>
-        <td><input type="text" name="nama_jadwal" class="form-control"></td>
-    </tr>
-    <tr>
-        <td width="30%">Hari</td>
-        <td><input type="date" name="hari" class="form-control"></td>
-    </tr>
-    <tr>
-        <td>Jam Mulai</td>
-        <td><input type="time" name="jam_mulai" class="form-control"></td>
-    </tr>
-    <tr>
-        <td>Guru</td>
-        <td>
-            <select name="id_guru" id="id_guru" class="form-select">
-                @foreach($guru as $item)
-                <option value="{{ $item->id_guru }}"> {{ $item->nama_guru }} </option>
-                @endforeach
-            </select>
-        </td>
-    </tr>
-    
-    <tr>
-        <td>Pelajaran</td>
-        <td>
-            <select name="id_pelajaran" id="id_pelajaran" class="form-select">
-                @foreach($pelajaran as $item)
-                <option value="{{ $item->id }}"> {{ $item->nama_pelajaran }} </option>
-                @endforeach
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="submit" class="btn btn-primary" value="Kirim">
-            <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali</a>
-        </td>
-    </tr>
-</table>
-</form>
-
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-sm px-5 btn-success">Simpan</button>
+                <a class="btn btn-sm btn-secondary px-5" href="{{ url()->previous() }}">Kembali</a>
+            </div>
+        </form>
+    </div>
 @endsection

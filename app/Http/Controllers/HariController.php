@@ -10,28 +10,23 @@ class HariController extends Controller
     public function index()
     {
         $hari = Hari_model::get();
-        return view ('hari/index', compact('hari'));
+        $page_title = 'Daftar Hari';
+        return view('hari/index', compact('hari', 'page_title'));
     }
 
     public function create()
     {
-       return view ('hari.add');
+        $page_title = 'Tambah Data Hari';
+        return view('hari.add', compact('page_title'));
     }
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'img'        => 'required|image|mimes:jpeg,jpg,png|max:2048',
-        //     'NamaHari'   => 'required'
-        // ]);
-        // $image = $request->file('img');
-        // $image->storeAs('public/img', $image->hashName());
-
         $hari = new Hari_model();
-        $hari->NamaHari = $request->NamaHari;
-        // $hari->img      = $image->hashName();
+        $hari->nama_hari = $request->nama_hari;
+        $hari->created_at = now();
         $hari->save();
-        return redirect('hari');
+        return redirect()->route('hari.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
     }
 
     public function show(string $id)
@@ -42,21 +37,24 @@ class HariController extends Controller
     public function edit(string $id)
     {
         $hari = Hari_model::find($id);
-        return view('hari.edit', compact('hari'));
+        $page_title = 'Ubah Data Hari';
+        return view('hari.edit', compact('hari', 'page_title'));
     }
 
     public function update(Request $request, string $id)
     {
         $hari = Hari_model::find($id);
-        $hari->NamaHari = $request->NamaHari;
-        $hari->save();
-        return redirect('hari');
+        $hari->nama_hari = $request->nama_hari;
+        $hari->updated_at = now();
+        $hari->update();
+        return redirect()->route('hari.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     public function destroy(string $id)
     {
-        $product = Hari_model::findOrFail($id);
-        $product->delete();
-        return redirect()->route('hari.index')->with(['success' => 'Data Berhasil Dihapus!']);        
+        // $hari = Hari_model::findOrFail($id);
+        // $hari->delete();
+        Hari_model::destroy($id);
+        return redirect()->route('hari.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

@@ -10,12 +10,14 @@ class PengumumanController extends Controller
     public function index()
     {
         $pengumuman = Pengumuman_model::get();
-        return view('admin/pengumuman/index', compact('pengumuman'));
+        $page_title = 'Daftar Pengumuman';
+        return view('admin/pengumuman/index', compact('pengumuman', 'page_title'));
     }
 
     public function create()
     {
-        return view('admin/pengumuman/add');
+        $page_title = 'Tambah Data Pengumuman';
+        return view('admin/pengumuman/add', compact('page_title'));
     }
 
     public function store(Request $request)
@@ -36,7 +38,8 @@ class PengumumanController extends Controller
     public function edit(string $id)
     {
         $pengumuman = Pengumuman_model::find($id);
-        return view('admin/pengumuman/edit', compact('pengumuman'));
+        $page_title = 'Ubah Data Pengumuman';
+        return view('admin/pengumuman/edit', compact('pengumuman', 'page_title'));
     }
 
     public function update(Request $request, string $id)
@@ -59,6 +62,7 @@ class PengumumanController extends Controller
     public function cetak_pengumuman()
     {
         $pengumuman = Pengumuman_model::get();
-        return view('admin/pengumuman/cetak', compact('pengumuman'));
+        $page_title = 'Cetak Data Pengumuman';
+        return view('admin/pengumuman/cetak', compact('pengumuman', 'page_title'));
     }
 }

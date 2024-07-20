@@ -1,28 +1,39 @@
 @extends('layout.main')
 @section('content')
-<h3>Edit Data</h3>
-<form action="{{ route('pengumuman.update', $pengumuman->id_pengumuman) }}" method="post">
-    @csrf
-    @method('put')
-    <table class="table table-borderless">
-        <tr>
-            <td width="20%">Judul pengumuman</td>
-            <td><input type="text" class="form-control" name="judul" value="{{ $pengumuman->judul }}"></td>
-        </tr>
-        <tr>
-            <td>Isi pengumuman</td>
-            <td><textarea rows="4" class="form-control" name="isi_pengumuman">{{ $pengumuman->isi_pengumuman }}</textarea></td>
-        </tr>
-        <tr>
-            <td>Tgl posting</td>
-            <td><input type="date" class="form-control" name="tgl_posting" value="{{ $pengumuman->tgl_posting }}"></td>
-        </tr>
-        <tr>
-            <td>
-                <input class="btn btn-sm btn-success" type="submit" value="Simpan">
-                <a class="btn btn-sm btn-danger" href="{{ url()->previous() }}" >Kembali</a>
-            </td>
-        </tr>
-    </table>
-</form>
+    <div class="card">
+        <div class="card-header">
+            <h4>{{ $page_title }}</h4>
+        </div>
+        <form action="{{ route('pengumuman.update', $pengumuman->id_pengumuman) }}" method="post">
+            @csrf
+            @method('put')
+            <div class="card-body">
+                <div class="form-group row mb-3">
+                    <label class="form-label col-2">Judul Pengumuman</label>
+                    <div class="col-10">
+                        <input type="text" name="judul" class="form-control" value="{{ $pengumuman->judul }}">
+                    </div>
+                </div>
+
+                <div class="form-group row mb-3">
+                    <label class="form-label col-2">Isi Pengumuman</label>
+                    <div class="col-10">
+                        <textarea rows="4" name="isi_pengumuman" class="form-control">{{ $pengumuman->isi_pengumuman }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label class="form-label col-2">Tgl Posting</label>
+                    <div class="col-3">
+                        <input type="date" name="tgl_posting" class="form-control"
+                            value="{{ $pengumuman->tgl_posting }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-sm px-5 btn-success">Simpan</button>
+                <a class="btn btn-sm btn-secondary px-5" href="{{ url()->previous() }}">Kembali</a>
+            </div>
+        </form>
+    </div>
 @endsection

@@ -9,26 +9,27 @@ use Illuminate\Support\Facades\DB;
 class Jadwal extends Model
 {
     use HasFactory;
-    protected $table ="jadwal";
-    protected $primaryKey ="id";
+    protected $table = "jadwal";
+    protected $primaryKey = "jadwal_id";
 
-    public function guru(){
-        return $this->belongsTo(Guru::class, 'id_guru'); //id guru fk
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'guru_id'); //id guru fk
     }
-        
-    public function pelajaran(){
-        return $this->belongsTo(Pelajaran_model::class, 'id_pelajaran');
+
+    public function pelajaran()
+    {
+        return $this->belongsTo(Pelajaran_model::class, 'pelajaran_id');
     }
-    
-public function list_jadwal()
-{
-    $query = DB::table('jadwal')
-        ->leftjoin('guru', 'guru.id_guru', '=', 'jadwal.id_guru')
-        ->leftjoin('pelajaran', 'pelajaran.id', '=', 'jadwal.id_pelajaran')
-        ->select('jadwal.*', 'guru.nama_guru', 'pelajaran.nama_pelajaran')
-        ->get();
-    return $query; 
-}
 
-
+    public function list_jadwal()
+    {
+        $query = DB::table('jadwal')
+            ->leftjoin('guru', 'guru.guru_id', '=', 'jadwal.guru_id')
+            ->leftjoin('pelajaran', 'pelajaran.pelajaran_id', '=', 'jadwal.pelajaran_id')
+            ->leftjoin('hari', 'hari.hari_id', '=', 'jadwal.hari_id')
+            ->select('jadwal.*', 'guru.nama_guru', 'pelajaran.nama_pelajaran', 'hari.nama_hari')
+            ->get();
+        return $query;
+    }
 }

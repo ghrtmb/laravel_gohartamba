@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\GuruController;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [SiswaController::class, 'index'])->name('siswa.index');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::resource('gallery', GalleryController::class);
 
 Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
@@ -30,14 +31,7 @@ Route::get('cetak_siswa', [SiswaController::class, 'cetak_siswa'])->name('cetak_
 
 Route::get('/jurusan', [JurusanController::class, 'index'])->name('jurusan.index');
 
-
 Route::resource('guru', GuruController::class);
-// Route::get('guru', [GuruController::class, 'index']);
-// Route::post('guru', [GuruController::class, 'create']);
-// Route::post('guru', [GuruController::class, 'store']);
-// Route::get('guru/{id}', [GuruController::class, 'show']);
-// Route::put('guru/{id}', [GuruController::class, 'update']);
-// Route::delete('guru/{id}', [GuruController::class, 'destroy']);
 
 //other way route
 Route::resource('pelajaran', PelajaranController::class);

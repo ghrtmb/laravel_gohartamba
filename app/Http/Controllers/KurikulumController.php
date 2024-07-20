@@ -10,12 +10,14 @@ class KurikulumController extends Controller
     public function index()
     {
         $kurikulum = kurikulum::get();
-       return view('kurikulum.index', compact('kurikulum'));
+        $page_title = 'Daftar Kurikulum';
+        return view('kurikulum.index', compact('kurikulum', 'page_title'));
     }
 
     public function create()
     {
-       return view ('kurikulum.add');
+        $page_title = 'Tambah Data Kurikulum';
+        return view('kurikulum.add', compact('page_title'));
     }
 
     public function store(Request $request)
@@ -37,7 +39,8 @@ class KurikulumController extends Controller
     public function edit(string $id)
     {
         $kurikulum = kurikulum::find($id);
-        return view('kurikulum.edit', compact('kurikulum'));
+        $page_title = 'Ubah Data Kurikulum';
+        return view('kurikulum.edit', compact('kurikulum', 'page_title'));
     }
 
     public function update(Request $request, string $id)
@@ -52,7 +55,7 @@ class KurikulumController extends Controller
 
     public function destroy(string $id)
     {
-         kurikulum::destroy($id);
-         return redirect()->route('kurikulum.index');
+        kurikulum::destroy($id);
+        return redirect()->route('kurikulum.index');
     }
 }

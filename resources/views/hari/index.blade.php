@@ -1,68 +1,44 @@
 @extends('layout.main')
 @section('content')
+    <h3>{{ $page_title }}</h3>
 
-<h1>Master Hari</h1>
-<a href="">Tambah Data</a>
-<div class="card">
-    <div class="card-header">
-        <a href="{{ route('hari.create') }}" class="btn btn-success btn-sm">Tambah Data</a>
+    <div class="card">
+        <div class="card-header bg-success">
+            <a href="{{ route('hari.create') }}" class="btn btn-outline-dark btn-sm shadow-lg"><i class="fas fa-plus"></i>
+                Tambah
+                Data</a>
+
+        </div>
+
+        <div class="card-body">
+            <table class="table table-sm table-stripped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th class="text-center">No</th>
+                        <th>Nama Hari</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($hari as $item)
+                        <tr>
+                            <td align="center" width=5%>{{ $loop->iteration }}</td>
+                            <td>{{ $item->nama_hari }}</td>
+                            <td align="center" width=15%>
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                    action="{{ route('hari.destroy', $item->hari_id) }}" method="POST">
+                                    <a href="{{ route('hari.edit', $item->hari_id) }}" class="btn btn-sm btn-outline-dark"
+                                        title="Ubah data"><i class="fas fa-edit"></i></a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-dark" title="Hapus data"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-
-<div class="card-body">
-<table class="table table-sm table-stripped table-bordered">
-    <tr>
-        <thead>
-        <td>No</td>
-        <td>Nama Hari</td>
-        {{-- <td>Icon</td> --}}
-        <td>Aksi</td>
-    </tr>
-</thead>
-<tbody>
-@foreach($hari as $item )
-    <tr>
-        <td>{{ $loop->iteration }}</td>
-        <td>{{ $item->NamaHari }}</td>
-        {{-- <td><img src="{{ asset('storage/img/' . $item->img) }}" alt="" width="5%"></td> --}}
-        <td>
-            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('hari.destroy', $item->HariID) }}" method="POST">
-                <a href="{{ route('hari.show', $item->HariID) }}" class="btn btn-sm btn-dark">SHOW</a>
-                <a href="{{ route('hari.edit', $item->HariID) }}" class="btn btn-sm btn-primary">EDIT</a>
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-            </form>
-        </td>
-    </tr>
-@endforeach
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    //message with sweetalert
-    @if(session('success'))
-        Swal.fire({
-            icon: "success",
-            title: "BERHASIL",
-            text: "{{ session('success') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @elseif(session('error'))
-        Swal.fire({
-            icon: "error",
-            title: "GAGAL!",
-            text: "{{ session('error') }}",
-            showConfirmButton: false,
-            timer: 2000
-        });
-    @endif
-
-</script>
-
-</tbody>
-</table>
-</div>
-</div>
 @endsection

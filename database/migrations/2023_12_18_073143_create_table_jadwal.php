@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            $table->string('id_guru');
+            $table->string('guru_id');
             $table->string('jam_mulai');
             $table->string('hari');
-            $table->string('id_pelajaran');
+            $table->string('pelajaran_id');
             $table->timestamps();
         });
     }

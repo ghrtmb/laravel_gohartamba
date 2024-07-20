@@ -11,24 +11,26 @@ class PerkiraanController extends Controller
     public function index()
     {
         $perkiraan = Perkiraan_model::get();
-       return view ('admin/perkiraan/index', compact('perkiraan'));
+        $page_title = 'Daftar Perkiraan';
+        return view('admin/perkiraan/index', compact('perkiraan', 'page_title'));
     }
 
 
     public function create()
     {
-       return view ('admin/perkiraan/tambah');
+        $page_title = 'Tambah Data Perkiraan';
+        return view('admin/perkiraan/tambah', compact('page_title'));
     }
 
 
     public function store(Request $request)
     {
-       $perkiraan = new Perkiraan_model();
-       $perkiraan->nomor_perkiraan = $request->nomor_perkiraan;
-       $perkiraan->nama_perkiraan = $request->nama_perkiraan;
-       $perkiraan->tipe = $request->tipe;
-       $perkiraan->save();
-       return redirect('perkiraan'); 
+        $perkiraan = new Perkiraan_model();
+        $perkiraan->nomor_perkiraan = $request->nomor_perkiraan;
+        $perkiraan->nama_perkiraan = $request->nama_perkiraan;
+        $perkiraan->tipe = $request->tipe;
+        $perkiraan->save();
+        return redirect('perkiraan');
     }
 
 
@@ -40,18 +42,19 @@ class PerkiraanController extends Controller
     public function edit(string $id)
     {
         $perkiraan = Perkiraan_model::find($id);
-        return view ('admin/perkiraan/edit', compact('perkiraan'));
+        $page_title = 'Ubah Data Perkiraan';
+        return view('admin/perkiraan/edit', compact('perkiraan', 'page_title'));
     }
 
 
     public function update(Request $request, string $id)
     {
-       $perkiraan = Perkiraan_model::find($id);
-       $perkiraan->nomor_perkiraan = $request->nomor_perkiraan;
-       $perkiraan->nama_perkiraan = $request->nama_perkiraan;
-       $perkiraan->tipe = $request->tipe;
-       $perkiraan->save();
-       return redirect('perkiraan'); 
+        $perkiraan = Perkiraan_model::find($id);
+        $perkiraan->nomor_perkiraan = $request->nomor_perkiraan;
+        $perkiraan->nama_perkiraan = $request->nama_perkiraan;
+        $perkiraan->tipe = $request->tipe;
+        $perkiraan->save();
+        return redirect('perkiraan');
     }
 
     public function destroy(string $id)
@@ -61,7 +64,8 @@ class PerkiraanController extends Controller
         return redirect('perkiraan')->with(' berhasil');
     }
 
-    public function cetak_perkiraan(){
+    public function cetak_perkiraan()
+    {
         $perkiraan = Perkiraan_model::get();
         return view('admin/perkiraan/cetak_perkiraan', compact('perkiraan'));
     }

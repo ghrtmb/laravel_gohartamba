@@ -9,7 +9,7 @@ class Hari_model extends Model
 {
     use HasFactory;
 
-     protected $table="hari";
-     protected $primaryKey="HariID";
-     public $timestamps = false;
+    protected $table = "hari";
+    protected $primaryKey = "hari_id";
+    public $timestamps = false;
 }

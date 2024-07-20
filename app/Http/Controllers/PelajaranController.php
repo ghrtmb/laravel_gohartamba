@@ -13,7 +13,8 @@ class PelajaranController extends Controller
     public function index()
     {
         $pelajaran = Pelajaran_model::get();
-        return view('pelajaran.index', compact('pelajaran'));
+        $page_title = 'Daftar Pelajaran';
+        return view('pelajaran.index', compact('pelajaran', 'page_title'));
     }
 
     /**
@@ -21,7 +22,8 @@ class PelajaranController extends Controller
      */
     public function create()
     {
-        return view('pelajaran.add');
+        $page_title = 'Tambah Data Pelajaran';
+        return view('pelajaran.add', compact('page_title'));
     }
 
     /**
@@ -49,25 +51,24 @@ class PelajaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pelajaran_model $pelajaran_model, $id)
+    public function edit(string $pelajaran_id)
     {
-      
-        $pelajaran = Pelajaran_model::find($id);
-        return view('pelajaran.edit', compact('pelajaran'));
-        // $pelajaran->nama = $request->nama_pelajaran;
-        // $pelajaran->update();
+
+        $pelajaran = Pelajaran_model::find($pelajaran_id);
+        $page_title = 'Ubah Data Pelajaran';
+        return view('pelajaran.edit', compact('pelajaran', 'page_title'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pelajaran_model $pelajaran_model, $id)
+    public function update(Request $request, string $pelajaran_id)
     {
         $request->validate([
             'nama_pelajaran' => 'required'
         ]);
-        
-        $pelajaran = Pelajaran_model::find($id);      
+
+        $pelajaran = Pelajaran_model::find($pelajaran_id);
         $pelajaran->nama_pelajaran = $request->nama_pelajaran;
         $pelajaran->update();
         return redirect()->route('pelajaran.index');
@@ -76,9 +77,9 @@ class PelajaranController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pelajaran_model $pelajaran_model, $id)
+    public function destroy(Pelajaran_model $pelajaran_model, $pelajaran_id)
     {
-        Pelajaran_model::find($id)->delete();
+        Pelajaran_model::find($pelajaran_id)->delete();
         return redirect()->route('pelajaran.index');
     }
 }

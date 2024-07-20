@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 19, 2024 at 02:29 PM
+-- Generation Time: Jul 20, 2024 at 04:12 AM
 -- Server version: 5.7.33
 -- PHP Version: 8.2.21
 
@@ -83,14 +83,22 @@ CREATE TABLE `gallery` (
 --
 
 CREATE TABLE `guru` (
-  `id_guru` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guru_id` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_guru` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gender` enum('M','F') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` text COLLATE utf8mb4_unicode_ci,
   `alamat` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `guru`
+--
+
+INSERT INTO `guru` (`guru_id`, `nama_guru`, `gender`, `alamat`, `phone`, `created_at`, `updated_at`) VALUES
+('123', 'Guru 1', NULL, '12345', '1234', '2024-07-15 08:14:04', '2024-07-18 09:21:56'),
+('4321', 'Guru 2', NULL, '4321', '4321', '2024-07-15 08:54:57', '2024-07-18 09:22:03');
 
 -- --------------------------------------------------------
 
@@ -99,10 +107,23 @@ CREATE TABLE `guru` (
 --
 
 CREATE TABLE `hari` (
-  `HariID` int(10) UNSIGNED NOT NULL,
-  `NamaHari` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default.jpg'
+  `hari_id` int(10) UNSIGNED NOT NULL,
+  `nama_hari` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `hari`
+--
+
+INSERT INTO `hari` (`hari_id`, `nama_hari`, `created_at`, `updated_at`) VALUES
+(1, 'Senin', NULL, '2024-07-20 03:40:40'),
+(2, 'Selasa', NULL, '2024-07-20 03:40:37'),
+(3, 'Rabu', NULL, '2024-07-20 03:40:34'),
+(4, 'Kamis', NULL, '2024-07-20 03:40:29'),
+(5, 'Jumat', NULL, '2024-07-20 03:40:26'),
+(6, 'Sabtu', NULL, '2024-07-20 03:40:19');
 
 -- --------------------------------------------------------
 
@@ -113,7 +134,7 @@ CREATE TABLE `hari` (
 CREATE TABLE `jadwal` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_guru` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_pelajaran` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pelajaran_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_jadwal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `jam_mulai` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hari` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -198,6 +219,26 @@ CREATE TABLE `migrations` (
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '0001_01_01_000000_create_users_table', 1),
+(2, '0001_01_01_000001_create_cache_table', 1),
+(3, '0001_01_01_000002_create_jobs_table', 1),
+(4, '2023_06_26_060205_create_gurus_table', 1),
+(5, '2023_06_26_065508_create_siswas_table', 1),
+(6, '2023_12_18_042518_create_table_kurikulums', 1),
+(7, '2023_12_18_073143_create_table_jadwal', 1),
+(8, '2023_12_18_073347_create_table_pelajaran', 1),
+(9, '2024_04_30_153750_create_tabel_jurusan', 1),
+(10, '2024_05_02_142942_create_table_gallery', 1),
+(11, '2024_05_29_103919_create_table_penduduk', 1),
+(12, '2024_05_29_114917_create_table_perkiraan', 1),
+(13, '2024_05_30_121209_create_table_hari', 1),
+(14, '2024_06_22_070946_create_table_pengumuman', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -222,6 +263,14 @@ CREATE TABLE `pelajaran` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pelajaran`
+--
+
+INSERT INTO `pelajaran` (`id`, `nama_pelajaran`, `created_at`, `updated_at`) VALUES
+(1, 'Pelajaran 1', NULL, NULL),
+(2, 'Pelajaran 2', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -254,6 +303,13 @@ CREATE TABLE `pengumuman` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `pengumuman`
+--
+
+INSERT INTO `pengumuman` (`id_pengumuman`, `judul`, `isi_pengumuman`, `tgl_posting`, `created_at`, `updated_at`) VALUES
+(3, '123', '123', '2024-07-18', '2024-07-15 08:45:50', '2024-07-18 09:24:40');
+
 -- --------------------------------------------------------
 
 --
@@ -268,6 +324,14 @@ CREATE TABLE `sessions` (
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('2YkDJMqtOHtNCHgSx6YPHRyMVdOvOP0pcBAvWYnY', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSmwxa3RNR1p2ZUpYbDlPVzdpcG5XdXU5MVpMeGtDd2pNeVh1Z05IVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ndXJ1Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1721441423),
+('kExjiR8xTlgOwWo5goSme54DEZOaZRgKcDUAEqfZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidUJkcFRDYWpVMGt6WnZXTjhhZFhFVjZlcW5TSmJYVEtac1NnYm9KNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9rdXJpa3VsdW0iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1721448487);
 
 -- --------------------------------------------------------
 
@@ -351,13 +415,13 @@ ALTER TABLE `gallery`
 -- Indexes for table `guru`
 --
 ALTER TABLE `guru`
-  ADD PRIMARY KEY (`id_guru`);
+  ADD PRIMARY KEY (`guru_id`);
 
 --
 -- Indexes for table `hari`
 --
 ALTER TABLE `hari`
-  ADD PRIMARY KEY (`HariID`);
+  ADD PRIMARY KEY (`hari_id`);
 
 --
 -- Indexes for table `jadwal`
@@ -467,7 +531,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `hari`
 --
 ALTER TABLE `hari`
-  MODIFY `HariID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `hari_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `jadwal`
@@ -497,13 +561,13 @@ ALTER TABLE `kurikulums`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pelajaran`
 --
 ALTER TABLE `pelajaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `penduduk`
@@ -515,7 +579,7 @@ ALTER TABLE `penduduk`
 -- AUTO_INCREMENT for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
-  MODIFY `id_pengumuman` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengumuman` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tabel_akuntansi_master`
